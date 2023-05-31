@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}"></title>
+</head>
+<body>
+    <h1 th:text="${titulo}" ></h1>
+    <div>
+        <h2>Parametros recibidos por url </h2>
+        El parametro es: <span style="color: #654321" th:text="${parametro}"></span>
+        <br>
+        El otro parametro es: <span style="color: #555555" th:text="${otroParametro}"></span>
+    </div>
+    <div th:if="${jugador != null}">
+        <h2>Parametros recibidos por path </h2>
+        El jugador con numero <span style="color: #369" th:text="${jugador.getNumero()}"></span> es: <span style="color: #969" th:text="${jugador.getNombre()}"></span>
+    </div>
+</body>
+</html>
