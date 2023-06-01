@@ -1,4 +1,4 @@
-package com.juanpa.springfacilito.controllers;
+package com.juanpa.springfacilito.ejemplo.controllers;
 
 import java.util.Optional;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.juanpa.springfacilito.models.Equipo;
-import com.juanpa.springfacilito.models.Jugador;
-import com.juanpa.springfacilito.services.IService;
+import com.juanpa.springfacilito.ejemplo.models.Equipo;
+import com.juanpa.springfacilito.ejemplo.models.Jugador;
+import com.juanpa.springfacilito.ejemplo.services.IService;
 
 
 @Controller

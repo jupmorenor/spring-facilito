@@ -1,4 +1,4 @@
-package com.juanpa.springfacilito.controllers;
+package com.juanpa.springfacilito.ejemplo.controllers;
 
 import java.util.ArrayList;
 

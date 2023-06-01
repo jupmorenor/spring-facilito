@@ -1,4 +1,4 @@
-package com.juanpa.springfacilito.models;
+package com.juanpa.springfacilito.ejemplo.models;
 
 import java.util.ArrayList;
 import java.util.List;

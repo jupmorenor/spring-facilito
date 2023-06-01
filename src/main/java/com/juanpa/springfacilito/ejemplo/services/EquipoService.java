@@ -1,12 +1,12 @@
-package com.juanpa.springfacilito.services;
+package com.juanpa.springfacilito.ejemplo.services;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.juanpa.springfacilito.models.Equipo;
-import com.juanpa.springfacilito.models.Jugador;
+import com.juanpa.springfacilito.ejemplo.models.Equipo;
+import com.juanpa.springfacilito.ejemplo.models.Jugador;
 
 @Service("equiposEspaña")
 public class EquipoService implements IService {
