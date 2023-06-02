@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.juanpa.springfacilito.peliculas.entities.Actor;
 import com.juanpa.springfacilito.peliculas.entities.Pelicula;
 import com.juanpa.springfacilito.peliculas.services.IActorService;
 import com.juanpa.springfacilito.peliculas.services.IArchivoService;
@@ -55,8 +57,18 @@ public class PeliculaController {
 
     @GetMapping("/pelicula/{id}")
     public String editar(@PathVariable(name = "id") Long id, Model model) {
-        Pelicula pelicula = new Pelicula();
+        Pelicula pelicula = peliculaService.findById(id);
+        String ids = "";
+
+        for (Actor actor : pelicula.getProtagonistas()) {
+            if (ids.equals("")) {
+                ids = actor.getId().toString();
+            } else {
+                ids = ids + "," + actor.getId().toString();
+            }
+        }
         model.addAttribute("pelicula", pelicula);
+        model.addAttribute("ids", ids);
         model.addAttribute("generos", this.generoService.findAll());
         model.addAttribute("actores", this.actorService.findAll());
         model.addAttribute("titulo", "Editar pelicula");
@@ -69,7 +81,8 @@ public class PeliculaController {
         BindingResult br, 
         @ModelAttribute(name = "ids") String ids, 
         Model model,
-        @RequestParam("archivo") MultipartFile imagen
+        @RequestParam("archivo") MultipartFile imagen,
+        RedirectAttributes attr
     ) {
 
         if (br.hasErrors()) {
@@ -90,19 +103,45 @@ public class PeliculaController {
             pelicula.setImagen("default.jpg");
         }
 
-        List<Long> idsProtagonistas = Arrays.stream(ids.split(",")).map(Long::parseLong).collect(Collectors.toList());
-        pelicula.setProtagonistas(actorService.findAllById(idsProtagonistas));
+        if (ids != null && !ids.equals("")) {
+            List<Long> idsProtagonistas = Arrays.stream(ids.split(",")).map(Long::parseLong).collect(Collectors.toList());
+            pelicula.setProtagonistas(actorService.findAllById(idsProtagonistas));
+        }
         
         peliculaService.save(pelicula);
+        attr.addAttribute("msj", "Catalogo actualizado");
+        attr.addAttribute("tipoMsj", "success");
         return "redirect:home";
     }
 
+    @GetMapping("/pelicula/{id}/delete")
+    public String eliminar(@PathVariable(name = "id") Long id, Model model, RedirectAttributes attr) {
+        peliculaService.delete(id);
+        attr.addAttribute("msj", "pelicula eliminada con éxito");
+        attr.addAttribute("tipoMsj", "primary");
+        return "redirect:/listado";
+    }
+
     @GetMapping({"/", "/home", "/index"})
-    public String home(Model model) {
+    public String home(Model model, @RequestParam(required = false) String msj, @RequestParam(required = false) String tipoMsj) {
         model.addAttribute("peliculas", peliculaService.findAll());
-        model.addAttribute("msj", "Catalogo actualizado");
-        model.addAttribute("tipoMsj", "success");
+        if (!"".equals(msj) && !"".equals(tipoMsj)) {
+            model.addAttribute("msj", msj);
+            model.addAttribute("tipoMsj", tipoMsj);
+        }
         return "home";
+    }
+
+    @GetMapping("listado")
+    public String listado(Model model, @RequestParam(required = false) String msj, @RequestParam(required = false) String tipoMsj) {
+        model.addAttribute("titulo", "Listado de peliculas");
+        model.addAttribute("peliculas", peliculaService.findAll());
+
+        if (!"".equals(msj) && !"".equals(tipoMsj)) {
+            model.addAttribute("msj", msj);
+            model.addAttribute("tipoMsj", tipoMsj);
+        }
+        return "listado";
     }
 
     private String getExtension(String archivo) {
