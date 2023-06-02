@@ -2,6 +2,7 @@ package com.juanpa.springfacilito.peliculas.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -35,7 +37,8 @@ public class Pelicula implements Serializable {
     @OneToOne
     private Genero genero;
 
-    //private List<Actor> protagonistas;
+    @ManyToMany
+    private List<Actor> protagonistas;
 
     public Long getId() {
         return id;
@@ -69,13 +72,13 @@ public class Pelicula implements Serializable {
         this.genero = genero;
     }
 
-    /* public List<Actor> getProtagonistas() {
+    public List<Actor> getProtagonistas() {
         return protagonistas;
     }
 
     public void setProtagonistas(List<Actor> protagonistas) {
         this.protagonistas = protagonistas;
-    } */
+    }
 
     
     
