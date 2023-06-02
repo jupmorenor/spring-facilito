@@ -45,6 +45,8 @@ public class Pelicula implements Serializable {
     @ManyToMany
     private List<Actor> protagonistas;
 
+    private String imagen;
+
     public Long getId() {
         return id;
     }
@@ -85,6 +87,12 @@ public class Pelicula implements Serializable {
         this.protagonistas = protagonistas;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
     
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
     
 }

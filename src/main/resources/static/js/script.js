@@ -47,3 +47,15 @@ function eliminarActor(btn) {
 
     $(node).remove();
 }
+
+function previsualizar() {
+    let reader = new FileReader();
+
+    reader.readAsDataURL(document.getElementById("archivo").files[0]);
+
+    reader.onload = function(e) {
+        let vista = document.getElementById("vista-previa");
+        vista.classList.remove("d-none");
+        vista.style.backgroundImage = "url('"+ e.target.result +"')";
+    }
+}

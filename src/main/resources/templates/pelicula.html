@@ -6,19 +6,19 @@
 <body>
     <header th:insert="~{layouts/header :: header}"></header>
     <div class="container">
-        <form th:action="@{/pelicula}" th:object="${pelicula}" method="post" class="col-md-8 offset-md-2">
+        <form th:action="@{/pelicula}" th:object="${pelicula}" method="post" class="col-md-8 offset-md-2" enctype="multipart/form-data">
             <h2 th:text="${titulo}" class="py-4"></h2>
             <div class="row mb-3">
                 <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
+                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}">
                     <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
                 </div>
             </div>
             <div class="row mb-3">
                 <label for="fecha_estreno" class="col-sm-2 col-form-label">fecha de estreno</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" id="fecha_estreno" th:field="*{fechaEstreno}">
+                    <input type="date" class="form-control" id="fecha_estreno" name="fecha_estreno" th:field="*{fechaEstreno}">
                     <div class="invalid-feedback d-block" th:if="${#fields.hasErrors('fechaEstreno')}" th:errors="*{fechaEstreno}"></div>
                 </div>
             </div>
@@ -38,6 +38,13 @@
                         <option th:text="'Seleccione un actor'" th:value="0"></option>
                         <option th:each="actor : ${actores}" th:value="${actor.id}" th:text="${actor.nombre}" th:data-url="${actor.urlImagen}"></option>
                     </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="archivo" class="col-sm-2 col-form-label">Archivo</label>
+                <div class="col-sm-10">
+                    <input type="file" class="form-control" id="archivo" name="archivo" onchange="previsualizar()">
+                    <div id="vista-previa" class="d-none"></div>
                 </div>
             </div>
             <input id="ids" name="ids" type="hidden">

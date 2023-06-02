@@ -8,7 +8,7 @@
         <div class="row row-cols-1 row-cols-md-6 g-4">
             <div class="col" th:each="pelicula : ${peliculas}">
               <div class="card">
-                <img src="https://marbal.files.wordpress.com/2011/10/las-mejores-imagenes-de-goku-92.png" class="card-img-top" alt="Caratula pelicula">
+                <img th:src="@{${'/archivo?n='} + ${pelicula.imagen == null ? 'default.jpg' : pelicula.imagen }}" class="card-img-top" alt="Caratula pelicula">
                 <div class="card-body">
                   <h5 class="card-title" th:text="${pelicula.nombre}"></h5>
                   <p class="card-text" th:text="${pelicula.genero.nombre}"></p>
