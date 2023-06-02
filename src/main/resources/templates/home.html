@@ -4,7 +4,22 @@
 <body>
     <header th:insert="~{layouts/header :: header}"></header>
     <div class="container">
-        <h2>Home</h2>
+        <h2>Catalogo de peliculas</h2>
+        <div class="row row-cols-1 row-cols-md-6 g-4">
+            <div class="col" th:each="pelicula : ${peliculas}">
+              <div class="card">
+                <img src="https://marbal.files.wordpress.com/2011/10/las-mejores-imagenes-de-goku-92.png" class="card-img-top" alt="Caratula pelicula">
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${pelicula.nombre}"></h5>
+                  <p class="card-text" th:text="${pelicula.genero.nombre}"></p>
+                  <div class="catalogo-actor-container" th:each="actor : ${pelicula.protagonistas}">
+                    <div class="catalogo-actor-imagen" th:style="'background-image:url(' + ${actor.urlImagen} + ')'"></div>
+                    <div class="catalogo-actor-texto" th:text="${actor.nombre}"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
