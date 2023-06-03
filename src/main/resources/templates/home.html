@@ -21,5 +21,12 @@
             </div>
         </div>
     </div>
+    <nav aria-label="Page navigation example" class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" th:each="pagina : ${paginas}" th:classappend="${pagina == pactual ? 'active' : ''}">
+          <a class="page-link" th:href="@{'/home?pagina=' + ${pagina - 1}}" th:text="${pagina}"></a>
+        </li>
+      </ul>
+    </nav>
 </body>
 </html>
